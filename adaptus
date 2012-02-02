@@ -3,7 +3,7 @@
 function errore {
 	echo OPERAZIONE NON CONSENTITA
 	echo
-	echo "utilizzare \"--help\" per visualizzare la lista dei comandi"
+	echo "utilizzare \"-h\" per visualizzare la lista dei comandi"
 }
 
 function aiuto {
@@ -11,6 +11,7 @@ function aiuto {
 	echo "   -d = update, dist-upgrade"
 	echo "   -u = update, upgrade"
 	echo "   -r = update"
+	echo "   -h = show this help"
 }
 
 function update {
@@ -47,7 +48,7 @@ then
 		update
 		upgrade
 
-	elif [ $1 = "--help" ]
+	elif [ $1 = "-h" ]
 	then
 		aiuto
 
