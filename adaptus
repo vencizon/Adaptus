@@ -7,7 +7,7 @@ function errore {
 }
 
 function aiuto {
-	echo "   -a = update, upgrade, dist-upgrade"
+	echo "   -a = update, dist-upgrade"
 	echo "   -u = update, upgrade"
 	echo "   -r = update"
 	echo "   -h = show this help"
