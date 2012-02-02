@@ -1,0 +1,59 @@
+#!/bin/bash
+
+function errore {
+	echo OPERAZIONE NON CONSENTITA
+	echo
+	echo "utilizzare \"--help\" per visualizzare la lista dei comandi"
+}
+
+function aiuto {
+	echo "   -a = update, upgrade, dist-upgrade"
+	echo "   -d = update, dist-upgrade"
+	echo "   -u = update, upgrade"
+	echo "   -r = update"
+}
+
+function update {
+	sudo apt-get update
+}
+
+function upgrade {
+	sudo apt-get upgrade
+}
+
+function dist-upgrade {
+	sudo apt-get dist-upgrade
+}
+
+if [ $# -gt 0 ]
+then
+	if [ $1 = "-r" ]
+	then
+		update
+		
+	elif [ $1 = "-a" ]
+	then
+		update
+		upgrade
+		dist-upgrade
+
+	elif [ $1 = "-d" ]
+	then
+		update
+		dist-upgrade
+
+	elif [ $1 = "-u" ]
+	then
+		update
+		upgrade
+
+	elif [ $1 = "--help" ]
+	then
+		aiuto
+
+	else
+		errore
+	fi
+else
+	errore
+fi
