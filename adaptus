@@ -8,7 +8,6 @@ function errore {
 
 function aiuto {
 	echo "   -a = update, upgrade, dist-upgrade"
-	echo "   -d = update, dist-upgrade"
 	echo "   -u = update, upgrade"
 	echo "   -r = update"
 	echo "   -h = show this help"
@@ -33,12 +32,6 @@ then
 		update
 		
 	elif [ $1 = "-a" ]
-	then
-		update
-		upgrade
-		dist-upgrade
-
-	elif [ $1 = "-d" ]
 	then
 		update
 		dist-upgrade
