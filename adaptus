@@ -79,35 +79,37 @@ function autoremove {
 }
 
 
+check=`expr substr $1 1 1`
+option=`expr substr $1 2 15`
 
-if [ $# -gt 0 ]
+if [ $check = "-" ]
 then
-	case $1 in
-		"-h")	help;;
+	case $option in
+		"h")	help;;
 
-		"-d") 	check $# 1
+		"d") 	check $# 1
 			update;;
 				
-		"-a") 	check $# 1
+		"a") 	check $# 1
 			update
 			upgrade
 			dist-upgrade;;
 
-		"-du")	check $# 1
+		"du")	check $# 1
 			update
 			dist-upgrade;;
 
-		"-u")   check $# 1
+		"u")   check $# 1
 			update
 			upgrade;;
 
-		"-i")	install $@;;
+		"i")	install $@;;
 
-		"-r")	remove $@;;
+		"r")	remove $@;;
 
-		"-p")	purge $@;;
+		"p")	purge $@;;
 	
-		"-ar")  autoremove $@;;
+		"ar")  autoremove $@;;
 
 		*)	error;;
 	esac
