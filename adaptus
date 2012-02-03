@@ -15,16 +15,25 @@ function help {
 	
 	"
 	echo "OPTIONS"
-	echo "	-r	apt-get update
+	echo "	-d	apt-get update
 		"
 	echo "	-u	apt-get update
 		apt-get upgrade
+		"
+	echo "	-du	apt-get update
 		apt-get dist-upgrade
 		"
 	echo "	-a	apt-get update
+		apt-get upgrade
 		apt-get dist-upgrade
 		"
-	echo "	-i	install package[s]
+	echo "	-i	apt-get install file1 .. filen
+		"
+	echo "	-r	apt-get remove file1 .. filen
+		"
+	echo "	-p	apt-get purge file1 .. filen
+		"
+	echo "	-ar	apt-get autoremove [file1 .. filen]
 		"
 	echo "	-h	show this help
 		"
@@ -54,10 +63,29 @@ function install {
 	sudo apt-get install $@
 }
 
+function remove {
+	shift
+	sudo apt-get remove $@
+}
+
+function purge {
+	shift
+	sudo apt-get purge $@
+}
+
+function autoremove {
+	shift
+	sudo apt-get autoremove $@
+}
+
+
+
 if [ $# -gt 0 ]
 then
 	case $1 in
-		"-r") 	check $# 1
+		"-h")	help;;
+
+		"-d") 	check $# 1
 			update;;
 				
 		"-a") 	check $# 1
@@ -65,7 +93,7 @@ then
 			upgrade
 			dist-upgrade;;
 
-		"-d")	check $# 1
+		"-du")	check $# 1
 			update
 			dist-upgrade;;
 
@@ -73,9 +101,13 @@ then
 			update
 			upgrade;;
 
-		"-h")	help;;
-	
 		"-i")	install $@;;
+
+		"-r")	remove $@;;
+
+		"-p")	purge $@;;
+	
+		"-ar")  autoremove $@;;
 
 		*)	error;;
 	esac
