@@ -10,7 +10,15 @@ function aiuto {
 	echo "   -a = update, dist-upgrade"
 	echo "   -u = update, upgrade"
 	echo "   -r = update"
+	echo "   -i = install package"
 	echo "   -h = show this help"
+}
+
+function check {
+	if [ $1 -gt $2 ]; then
+		errore
+		exit 1
+	fi
 }
 
 function update {
@@ -25,29 +33,35 @@ function dist-upgrade {
 	sudo apt-get dist-upgrade
 }
 
+function install {
+	sudo apt-get install $1
+}
+
 if [ $# -gt 0 ]
 then
-	if [ $1 = "-r" ]
-	then
-		update
-		
-	elif [ $1 = "-a" ]
-	then
-		update
-		dist-upgrade
+	case $1 in
+		"-r") 	check $# 1
+			update;;
+				
+		"-a") 	check $# 1
+			update
+			upgrade
+			dist-upgrade;;
 
-	elif [ $1 = "-u" ]
-	then
-		update
-		upgrade
+		"-d")	check $# 1
+			update
+			dist-upgrade;;
 
-	elif [ $1 = "-h" ]
-	then
-		aiuto
+		"-u")   check $# 1
+			update
+			upgrade;;
 
-	else
-		errore
-	fi
+		"-h")	aiuto;;
+	
+		"-i")	install $2;;
+
+		*)	errore;;
+	esac
 else
 	errore
 fi
