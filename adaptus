@@ -1,22 +1,38 @@
 #!/bin/bash
 
-function errore {
-	echo OPERAZIONE NON CONSENTITA
-	echo
-	echo "utilizzare \"-h\" per visualizzare la lista dei comandi"
+function error {
+	echo "OPERAZIONE NON CONSENTITA
+	"	
+	echo "utilizzo \"-h\" per visualizzare la lista dei comandi"
 }
 
-function aiuto {
-	echo "   -a = update, dist-upgrade"
-	echo "   -u = update, upgrade"
-	echo "   -r = update"
-	echo "   -i = install package"
-	echo "   -h = show this help"
+function help {
+	echo "ADAPTUS - A simple frontend for APT
+	
+	"
+	echo "USAGE"
+	echo "	adaptus [options] [file ..]
+	
+	"
+	echo "OPTIONS"
+	echo "	-r	apt-get update
+		"
+	echo "	-u	apt-get update
+		apt-get upgrade
+		apt-get dist-upgrade
+		"
+	echo "	-a	apt-get update
+		apt-get dist-upgrade
+		"
+	echo "	-i	install package[s]
+		"
+	echo "	-h	show this help
+		"
 }
 
 function check {
 	if [ $1 -gt $2 ]; then
-		errore
+		error
 		exit 1
 	fi
 }
@@ -34,7 +50,8 @@ function dist-upgrade {
 }
 
 function install {
-	sudo apt-get install $1
+	shift
+	sudo apt-get install $@
 }
 
 if [ $# -gt 0 ]
@@ -56,12 +73,12 @@ then
 			update
 			upgrade;;
 
-		"-h")	aiuto;;
+		"-h")	help;;
 	
-		"-i")	install $2;;
+		"-i")	install $@;;
 
-		*)	errore;;
+		*)	error;;
 	esac
 else
-	errore
+	error
 fi
