@@ -1,9 +1,19 @@
 #!/bin/bash
 
+##########################################
+## 	ADAPTUS				##
+##					##
+##	the apt frontend		##
+##########################################
+
 function error {
 	echo "OPERAZIONE NON CONSENTITA
 	"	
 	echo "utilizzo \"-h\" per visualizzare la lista dei comandi"
+}
+
+function version {
+	echo "Adaptus version 0.0.6"
 }
 
 function help {
@@ -15,27 +25,29 @@ function help {
 	
 	"
 	echo "OPTIONS"
-	echo "	-d	apt-get update
+	echo "	-d			apt-get update
 		"
-	echo "	-u	apt-get update
-		apt-get upgrade
+	echo "	-u			apt-get update
+				apt-get upgrade
 		"
-	echo "	-du	apt-get update
-		apt-get dist-upgrade
+	echo "	-du			apt-get update
+				apt-get dist-upgrade
 		"
-	echo "	-a	apt-get update
-		apt-get upgrade
-		apt-get dist-upgrade
+	echo "	-a			apt-get update
+				apt-get upgrade
+				apt-get dist-upgrade
 		"
-	echo "	-i	apt-get install file1 .. filen
+	echo "	-i			apt-get install file1 .. filen
 		"
-	echo "	-r	apt-get remove file1 .. filen
+	echo "	-r			apt-get remove file1 .. filen
 		"
-	echo "	-p	apt-get purge file1 .. filen
+	echo "	-p			apt-get purge file1 .. filen
 		"
-	echo "	-ar	apt-get autoremove [file1 .. filen]
+	echo "	-ar			apt-get autoremove [file1 .. filen]
 		"
-	echo "	-h	show this help
+	echo "	-V			for version
+		"
+	echo "	-h			show this help
 		"
 }
 
@@ -78,16 +90,20 @@ function autoremove {
 	sudo apt-get autoremove $@
 }
 
+function easteregg {
+	apt-get moo
+}
 
-check=`expr substr $1 1 1`
-option=`expr substr $1 2 15`
 
-if [ $check = "-" ]
+operator=`expr substr $1 1 1`
+first=`expr substr $1 2 15`
+
+if [ $operator = "-" ]
 then
-	case $option in
+	case $first in
 		"h")	help;;
 
-		"d") 	check $# 1
+		"d")	check $# 1
 			update;;
 				
 		"a") 	check $# 1
@@ -99,7 +115,7 @@ then
 			update
 			dist-upgrade;;
 
-		"u")   check $# 1
+		"u")	check $# 1
 			update
 			upgrade;;
 
@@ -109,7 +125,11 @@ then
 
 		"p")	purge $@;;
 	
-		"ar")  autoremove $@;;
+		"ar")	autoremove $@;;
+
+		"moo")	easteregg;;
+
+		"V")	version;;
 
 		*)	error;;
 	esac
