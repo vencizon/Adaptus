@@ -7,9 +7,9 @@
 ##########################################
 
 function error {
-	echo "OPERAZIONE NON CONSENTITA
+	echo "ERROR: wrong operation
 	"	
-	echo "utilizzo \"-h\" per visualizzare la lista dei comandi"
+	echo "use \"-h\" to show command list"
 }
 
 function version {
@@ -93,6 +93,10 @@ function autoremove {
 function easteregg {
 	apt-get moo
 }
+
+
+# at least 1 parameter
+check 1 $#
 
 
 operator=`expr substr $1 1 1`
